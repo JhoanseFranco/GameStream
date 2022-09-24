@@ -80,7 +80,7 @@ struct EditModule: View{
                 .fontWeight(.bold)
             
             ZStack(alignment: .leading){
-                if email.isEmpty{
+                if name.isEmpty{
                     Text("Introduce tu nuevo nombre de usuario")
                         .font(.caption)
                         .foregroundColor(Color("LightGray"))
@@ -93,7 +93,7 @@ struct EditModule: View{
                 .padding(.bottom, 24)
             
             Button {
-                
+                updateData()
             } label: {
                 Text("ACTUALIZAR DATOS")
                     .fontWeight(.bold)
@@ -108,6 +108,11 @@ struct EditModule: View{
         }
         .padding(.horizontal, 24)
         .foregroundColor(Color("PureWhite"))
+    }
+    func updateData(){
+        let SaveUserData = SaveData()
+        SaveUserData.saveData(email: email, password: password, name: name)
+        
     }
 }
 

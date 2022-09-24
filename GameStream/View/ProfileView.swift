@@ -46,6 +46,8 @@ struct ProfileView: View {
                     .padding([.leading, .bottom], 18)
                 
                 SettingsModule()
+                
+                Spacer()
             }
         }.onAppear {
             print("Recuperando datos guardados")

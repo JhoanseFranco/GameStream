@@ -66,6 +66,7 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     @State var isActiveHomeView = false
+    @State var showAlert = false
     
     var body: some View{
         
@@ -120,6 +121,9 @@ struct LoginView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding([.top, .bottom], 12)
                         .overlay(RoundedRectangle(cornerRadius: 12.0).stroke(Color("DarkCian"), lineWidth: 1).shadow(color: Color("PureWhite"), radius: 6))
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("alert"), message: Text("Usuario o contraseña invalidos, vuelte a intentarlo."), dismissButton: .default(Text("Aceptar")))
+                        }
                 })
                     .padding(.bottom, 60)
                 
@@ -161,7 +165,12 @@ struct LoginView: View {
        
     }
     func login() {
-        isActiveHomeView = true
+        let verifyUser = SaveData()
+        if verifyUser.validateUser(email: email, password: password){
+            isActiveHomeView = true
+        }else{
+            showAlert = true
+        }
     }
     
 }
