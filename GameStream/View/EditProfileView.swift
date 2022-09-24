@@ -8,19 +8,29 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @State var profileImage: Image? = Image("PicturePerfil")
+    @State var isCameraActive = false
     var body: some View {
         ZStack{
             Color("Marine")
                 .ignoresSafeArea()
             ScrollView{
                 VStack{
-                    Button {} label: {
+                    Button {
+                        isCameraActive = true
+                    } label: {
                         ZStack{
-                            Image("PicturePerfil")
+                            profileImage!
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 85, height: 85)
                                 .clipShape(Circle())
+                                .sheet(isPresented: $isCameraActive) {
+                                    
+                                } content: {
+                                    SUImagePickerView(sourceType: .photoLibrary, image: self.$profileImage, isPresented: $isCameraActive)
+                                }
+
                             
                             Image(systemName: "camera")
                                 .foregroundColor(Color("PureWhite"))
@@ -103,16 +113,18 @@ struct EditModule: View{
                                 .stroke(Color("DarkCian"), lineWidth: 1)
                                 .shadow(color: Color("PureWhite"), radius: 6))
             }
-
-            
         }
         .padding(.horizontal, 24)
         .foregroundColor(Color("PureWhite"))
+        .onAppear {
+            let dataUser = SaveData()
+            email = dataUser.getUserData()[0]
+            name = dataUser.getUserData()[2]
+        }
     }
     func updateData(){
         let SaveUserData = SaveData()
         SaveUserData.saveData(email: email, password: password, name: name)
-        
     }
 }
 

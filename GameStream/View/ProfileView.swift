@@ -50,7 +50,8 @@ struct ProfileView: View {
                 Spacer()
             }
         }.onAppear {
-            print("Recuperando datos guardados")
+            let userName = SaveData()
+            nameUser = userName.getUserData()[2]
         }
     }
 }

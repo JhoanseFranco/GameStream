@@ -31,7 +31,7 @@ case login, register
 }
 
 struct LoginRegisterView: View{
-    @State var section: Section = .login
+    @State public var section: Section = .login
     var body: some View{
         
         HStack{
@@ -210,7 +210,6 @@ struct RegisterView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 85, height: 85)
                             
-                        
                         Image(systemName: "camera")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -219,7 +218,6 @@ struct RegisterView: View {
                     }
                 })
             }
-            
             
             VStack(alignment: .leading) {
                     
@@ -322,15 +320,25 @@ struct RegisterView: View {
             }
         }.padding(.top, 50)
     }
+    
+    func register(){
+        let registerUser = SaveData()
+        
+        if email.isEmpty || password != confirmPassword{
+            print("campos vacios o las contraseñas no coinciden")
+        }else{
+            registerUser.saveData(email: email, password: password, name: email)
+            
+        }
+    }
+    
 }
 
 func takePhoto(){
     print("Tomar foto")
 }
 
-func register(){
-    print("Registrarse")
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
