@@ -21,7 +21,7 @@ struct ContentView: View {
                     LoginRegisterView()
                 }
             }.navigationBarHidden(true)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
     }
 }

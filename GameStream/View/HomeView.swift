@@ -53,6 +53,8 @@ struct HomeView: View {
             
         }
         .accentColor(Color("PureWhite"))
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @State var nameUser = "Pepe"
+    @State var profileImage: UIImage = UIImage(named: "PicturePerfil")!
     
     var body: some View {
         
@@ -26,11 +27,12 @@ struct ProfileView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 48)
                 
-                Image("PicturePerfil")
+                Image(uiImage: profileImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 85, height: 85)
                     .padding(.bottom, 12)
+                    .clipShape(Circle())
                 
                 Text("\(nameUser)")
                     .foregroundColor(Color("PureWhite"))
@@ -50,10 +52,26 @@ struct ProfileView: View {
                 Spacer()
             }
         }.onAppear {
+            
+            if let result = returnImage(named: "fotoPerfil"){
+                profileImage = result
+            }else{
+                print("no se encontró la imagen")
+            }
+            
             let userName = SaveData()
             nameUser = userName.getUserData()[2]
         }
     }
+    
+    func returnImage(named: String) -> UIImage?{
+        if let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false){
+            return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent(named).path)
+        }else{
+                return nil
+        }
+    }
+    
 }
 
 struct SettingsModule: View{
